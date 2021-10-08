@@ -62,7 +62,10 @@ class DashboardController extends Controller
                 'kapasitas_kursi' => $sisa_kursi
             ]);
         } else {
-            # code...
+            $jumlah_orang = Jemaat::all()->last();
+            $x =  $jumlah_orang->no_kursi;
+            $nomor_kursi = $x + 1;
+            echo $nomor_kursi;
         }
     }
 }
