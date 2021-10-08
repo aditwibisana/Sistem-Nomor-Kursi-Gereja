@@ -62,10 +62,23 @@ class DashboardController extends Controller
                 'kapasitas_kursi' => $sisa_kursi
             ]);
         } else {
+            $id = $request->id;
+            $gereja = Ibadah::find($id);
             $jumlah_orang = Jemaat::all()->last();
             $x =  $jumlah_orang->no_kursi;
             $nomor_kursi = $x + 1;
-            echo $nomor_kursi;
+            $daftar = Jemaat::create([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
+                'nik' => $request->nik,
+                'usia' => $request->usia,
+                'no_kursi' => $nomor_kursi,
+            ]);
+            $sisa_kursi = $gereja->kapasitas_kursi - 1;
+            $update_sisa_kursi = Ibadah::find($id)->update([
+                'kapasitas_kursi' => $sisa_kursi
+            ]);
         }
     }
 }
